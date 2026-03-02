@@ -17,7 +17,7 @@ A tmux plugin that automatically splits your current window into panes and tails
 
 2. Add this plugin to your `.tmux.conf`:
    ```bash
-   set -g @plugin 'fengxiaolong/tmux-multitail-plugin'
+   set -g @plugin 'Crucifixion-Fxl/tmux-multitail-plugin'
    ```
 
 3. Press `prefix + I` to install the plugin
