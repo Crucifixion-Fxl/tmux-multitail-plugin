@@ -28,21 +28,29 @@ if [ "$COUNT" -eq 1 ]; then
     exit 0
 fi
 
+# Get current pane index
+CURRENT_IDX=$(tmux display-message -p "#{pane_index}")
+
 # Split window to create (COUNT - 1) additional panes
 for ((i = 1; i < COUNT; i++)); do
-    tmux split-window -h -t 0
+    tmux split-window -h -t "$CURRENT_IDX"
 done
 
 # Arrange panes in a nice grid layout
-tmux select-layout -t 0 tiled >/dev/null 2>&1
+tmux select-layout -t "$CURRENT_IDX" tiled >/dev/null 2>&1
 
-# Send tail command to each pane
-# Save log files to temp file for bash 3 compatibility
+# After layout, get panes in visual order (left-to-right, top-to-bottom)
+# Use layout order which is the order panes appear in the grid
+PANE_ORDER=$(tmux list-panes -F "#{pane_id}" | tr '\n' ' ')
+
+# Send tail command to each pane using 0-based indexing
+# But we need to account for base-index (which is 1 in user's config)
 TMPFILE=$(mktemp /tmp/multitail.XXXXXX)
 echo "$LOG_LIST" > "$TMPFILE"
 
-i=0
+i=1
 while read -r log_file; do
+    # Use 1-based index for send-keys (matches pane-base-index)
     tmux send-keys -t $i "tail -F '$log_file'" C-m
     i=$((i + 1))
 done < "$TMPFILE"
@@ -50,6 +58,6 @@ done < "$TMPFILE"
 rm -f "$TMPFILE"
 
 # Return to first pane
-tmux select-pane -t 0
+tmux select-pane -t "$CURRENT_IDX"
 
 tmux display-message "Tailing $COUNT log files"
