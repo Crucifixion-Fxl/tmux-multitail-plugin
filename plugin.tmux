@@ -15,4 +15,6 @@
 #   Press prefix + m to tail all .log files in the current directory
 
 # Bind the key to run the multitail script
-bind-key m run-shell "bash #{plugin_root}/tmux-multitail-plugin/scripts/multitail.sh"
+# -n: no prefix required
+# -T root: global key table
+run -b "tmux bind-key -n m run-shell 'bash #{plugin_root}/tmux-multitail-plugin/scripts/multitail.sh'"
