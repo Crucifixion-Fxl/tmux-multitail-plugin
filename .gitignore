@@ -1,0 +1,11 @@
+# OS files
+.DS_Store
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs (in case someone tests in the plugin dir)
+*.log
