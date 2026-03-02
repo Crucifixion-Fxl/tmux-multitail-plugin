@@ -10,5 +10,4 @@
 #   Press prefix + m to tail all .log files in the current directory
 
 # Bind the key to run the multitail script
-# This will work when the plugin is loaded by TPM
-run 'tmux bind-key m run-shell "bash #{plugin_root}/tmux-multitail-plugin/scripts/multitail.sh"'
+bind m run-shell "bash #{plugin_root}/tmux-multitail-plugin/scripts/multitail.sh"
