@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # tmux-multitail-plugin
 # A tmux plugin to tail multiple log files in panes
 #
@@ -9,5 +11,12 @@
 # Usage:
 #   Press prefix + m to tail all .log files in the current directory
 
-# Bind the key to run the multitail script
-bind m run-shell "bash #{plugin_root}/tmux-multitail-plugin/scripts/multitail.sh"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPTS_DIR="${CURRENT_DIR}/scripts"
+
+main() {
+    # Bind the key to run the multitail script
+    tmux bind-key m run-shell "bash ${SCRIPTS_DIR}/multitail.sh"
+}
+
+main
