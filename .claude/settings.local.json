@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tmux kill-window:*)",
+      "Bash(tmux new-window:*)",
+      "Bash(tmux run-shell:*)"
+    ]
+  }
+}
