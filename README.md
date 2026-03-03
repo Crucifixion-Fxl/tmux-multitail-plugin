@@ -65,6 +65,8 @@ debug.log
 ```
 Press `prefix + m` → splits into 3 panes, each tailing a different log
 
+![Example](assets/example.jpg)
+
 ## Layout Algorithm
 
 The plugin uses a smart layout algorithm:
